@@ -245,4 +245,11 @@ select:focus { border-color: #3182ce; }
     margin-top: 8px;
 }
 
+.note a {
+    color: #3182ce;
+    text-decoration: none;
+}
+
+.note a:hover { text-decoration: underline; }
+
 .hidden { display: none; }
