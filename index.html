@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pressure to Depth Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Pressure &rarr; Depth Calculator</h1>
+        <button class="info-btn" onclick="showDocs()" title="Info &amp; Citations">&#9432;</button>
+    </div>
+
+    <!-- Calculator -->
+    <div class="main" id="main">
+        <div class="container">
+            <div class="card">
+                <div class="section-title">Pressure</div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <input type="number" id="pressure" placeholder="Enter pressure" step="any">
+                        <select id="pressure-unit">
+                            <option value="bars">bars</option>
+                            <option value="kbars">kbars</option>
+                            <option value="GPa">GPa</option>
+                            <option value="kPa">kPa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title">Density</div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <input type="number" id="density" placeholder="Enter density" step="any">
+                        <select id="density-unit">
+                            <option value="g/cm3">g/cm&sup3;</option>
+                            <option value="kg/cm3">kg/cm&sup3;</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title">Gravitational Acceleration</div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <select id="gravity-select">
+                            <option value="9.807">Earth (9.807 m/s&sup2;)</option>
+                            <option value="3.711">Mars (3.711 m/s&sup2;)</option>
+                            <option value="1.62">Moon (1.62 m/s&sup2;)</option>
+                            <option value="3.7">Mercury (3.7 m/s&sup2;)</option>
+                            <option value="8.87">Venus (8.87 m/s&sup2;)</option>
+                            <option value="24.79">Jupiter (24.79 m/s&sup2;)</option>
+                            <option value="10.44">Saturn (10.44 m/s&sup2;)</option>
+                            <option value="8.69">Uranus (8.69 m/s&sup2;)</option>
+                            <option value="11.15">Neptune (11.15 m/s&sup2;)</option>
+                            <option value="custom">Custom...</option>
+                        </select>
+                        <input type="number" id="gravity-custom" placeholder="m/s&sup2;" step="any" class="hidden">
+                    </div>
+                </div>
+            </div>
+
+            <button class="calc-btn" id="calculate">Calculate Depth</button>
+
+            <div id="result" class="result-card hidden">
+                <div class="result-label">Depth</div>
+                <div class="result-value" id="depth-km"></div>
+                <div class="result-unit">kilometers</div>
+                <div class="result-secondary" id="depth-m"></div>
+            </div>
+
+            <p class="note">h = P / (&rho; &middot; g)</p>
+        </div>
+    </div>
+
+    <!-- Documentation / Info page -->
+    <div class="docs-page" id="docs">
+        <div class="docs-container">
+            <button class="back-btn" onclick="hideDocs()">&larr; Back</button>
+
+            <div class="docs-section">
+                <h2>How to Use</h2>
+                <ol>
+                    <li>Enter the <strong>pressure</strong> and select its unit (bars, kbars, GPa, or kPa).</li>
+                    <li>Enter the <strong>density</strong> of the substrate and select its unit (g/cm&sup3; or kg/cm&sup3;).</li>
+                    <li>Choose a <strong>gravitational acceleration</strong> from the preset planetary values, or select "Custom" to enter your own.</li>
+                    <li>Click <strong>Calculate Depth</strong> (or press Enter) to compute the depth.</li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Formula</h2>
+                <p>Depth is calculated from the hydrostatic pressure equation:</p>
+                <div class="formula-box">h = P / (&rho; &middot; g)</div>
+                <p>Where:</p>
+                <ul>
+                    <li><strong>h</strong> = depth (m)</li>
+                    <li><strong>P</strong> = pressure (Pa)</li>
+                    <li><strong>&rho;</strong> = density (kg/m&sup3;)</li>
+                    <li><strong>g</strong> = gravitational acceleration (m/s&sup2;)</li>
+                </ul>
+                <p>All inputs are converted to SI units before calculation.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Unit Conversions</h2>
+                <h3>Pressure</h3>
+                <ul>
+                    <li>1 bar = 10<sup>5</sup> Pa</li>
+                    <li>1 kbar = 10<sup>8</sup> Pa</li>
+                    <li>1 GPa = 10<sup>9</sup> Pa</li>
+                    <li>1 kPa = 10<sup>3</sup> Pa</li>
+                </ul>
+                <h3>Density</h3>
+                <ul>
+                    <li>1 g/cm&sup3; = 1,000 kg/m&sup3;</li>
+                    <li>1 kg/cm&sup3; = 10<sup>6</sup> kg/m&sup3;</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Gravitational Acceleration Values</h2>
+                <p>Surface gravity values used in this calculator:</p>
+                <ul>
+                    <li><strong>Earth</strong>: 9.807 m/s&sup2;</li>
+                    <li><strong>Mars</strong>: 3.711 m/s&sup2;</li>
+                    <li><strong>Moon</strong>: 1.62 m/s&sup2;</li>
+                    <li><strong>Mercury</strong>: 3.7 m/s&sup2;</li>
+                    <li><strong>Venus</strong>: 8.87 m/s&sup2;</li>
+                    <li><strong>Jupiter</strong>: 24.79 m/s&sup2;</li>
+                    <li><strong>Saturn</strong>: 10.44 m/s&sup2;</li>
+                    <li><strong>Uranus</strong>: 8.69 m/s&sup2;</li>
+                    <li><strong>Neptune</strong>: 11.15 m/s&sup2;</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Citations &amp; References</h2>
+                <ul>
+                    <li>Surface gravity values from NASA Planetary Fact Sheets:
+                        <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/" target="_blank">nssdc.gsfc.nasa.gov/planetary/factsheet</a>
+                    </li>
+                    <li>Williams, D.R. (2024). "NASA Planetary Fact Sheet." NASA Goddard Space Flight Center.</li>
+                    <li>Standard gravitational acceleration: <em>g</em><sub>n</sub> = 9.80665 m/s&sup2; as defined by the 3rd CGPM (1901). This calculator uses 9.807 m/s&sup2; (rounded to 4 significant figures).</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>About</h2>
+                <p>This calculator computes the depth within a planetary substrate given a pressure and bulk density, assuming a uniform-density column under hydrostatic equilibrium. It is intended as a quick estimation tool for petrological and geophysical applications.</p>
+                <p>Source code available on GitHub.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
